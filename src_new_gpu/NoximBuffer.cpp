@@ -31,7 +31,8 @@ void NoximBuffer::SetMaxBufferSize(const unsigned int bms)
 {
   assert(bms > 0);
 
-  max_buffer_size = bms;
+  //max_buffer_size = bms;
+  max_buffer_size = 10000;
 }
 
 unsigned int NoximBuffer::GetMaxBufferSize() const

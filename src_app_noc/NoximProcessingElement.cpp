@@ -100,7 +100,7 @@ void NoximProcessingElement::rxProcess()
     			    		if (flit_tmp.data_value > 0)
     			    			error += (flit_tmp.data_value - flit_tmp.approx_data_values[0])/flit_tmp.data_value;
     			    	}
-    			    		cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+    			    		//cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
 
     			    	}
     			    	start_clock = true;

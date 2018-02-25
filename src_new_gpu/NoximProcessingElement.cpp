@@ -105,7 +105,7 @@ void NoximProcessingElement::rxProcess()
     			    			if (!is_mc(local_id) && flit_tmp.apx_dst_id[i] == local_id){
     			    				if (flit_tmp.data_value > 0)
     			    					error += (flit_tmp.data_value - flit_tmp.approx_data_val[i])/flit_tmp.data_value;
-    			    				cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+    			    				//cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
     			    			}
     			    		}
 
@@ -291,6 +291,7 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
     NoximFlit flit;
     for (int i=0; i < BUFF_CHK; i++){
 		flit.apx_dst_id[i] = -1;
+		flit.approx_data_val[i] = -9999;
 	}
     NoximPacket packet = packet_queue[slice].front();
     if(!packet_queue[slice].empty()){
@@ -304,7 +305,16 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
     flit.data_size = packet.reply_data_size;
     flit.flit_sent = true;
     flit.tag = randInt(1, 500);
-
+	flit.data_value = packet.data_value;
+	flit.approx_len = packet.approx_len;
+	if(packet.is_approx)
+	{
+		for(int i = 0; i< BUFF_CHK; i++)
+		{
+			flit.approx_data_val[i] = packet.approx_data_val[i];
+			flit.apx_dst_id[i] = packet.apx_dst_id[i];
+		}
+	}
 
     if (packet.size == packet.flit_left)
     {
@@ -314,18 +324,6 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
     else if (packet.flit_left == 1)
 	{
 		flit.flit_type = FLIT_TYPE_TAIL;
-		flit.data_value = packet.data_value;
-		flit.approx_len = packet.approx_len;
-		if(packet.is_approx)
-		{
-			for(int i = 0; i< BUFF_CHK; i++)
-			{
-				flit.approx_data_val[i] = packet.approx_data_val[i];
-				flit.apx_dst_id[i] = packet.apx_dst_id[i];
-				flit.approx_len = packet.approx_len;
-			}
-		}
-		
 	}    
 	else
 	flit.flit_type = FLIT_TYPE_BODY;
@@ -677,6 +675,7 @@ void NoximProcessingElement::approximate(NoximPacket& pkt, deque <NoximPacket>& 
 	vector<int> rem_indx;
 	int approx_len = 0;
 	double err_thresh = 0;
+	pkt.approx_len = 0;
 		if (is_mc(local_id))
 		{
 			if(pkt.is_approx && interface_buf.size() > BUFF_CHK)
@@ -685,8 +684,9 @@ void NoximProcessingElement::approximate(NoximPacket& pkt, deque <NoximPacket>& 
 				for (int i = 0; i< BUFF_CHK; i++)
 				{
 					NoximPacket nxt_pkt = interface_buf.at(i+1);
-					if(abs(pkt.data_value - nxt_pkt.data_value) < err_thresh)
+					if(abs(pkt.data_value - nxt_pkt.data_value) < err_thresh && nxt_pkt.is_approx)
 					{
+						//cout<<"data "<<pkt.data_value<<" next "<<nxt_pkt.data_value<<endl;
 						pkt.approx_data_val[i] = nxt_pkt.data_value;
 						pkt.apx_dst_id[i] = nxt_pkt.dst_id;
 						rem_indx.push_back(i+1);

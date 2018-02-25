@@ -1,4 +1,4 @@
-TARGET_ARCH = linux64
+TARGET_ARCH = linux
 # TARGET_ARCH = macosx64
 
 CC     = g++

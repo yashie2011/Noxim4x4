@@ -24,24 +24,29 @@ void fc_router::rxProcess()
     		for(int i=0; i<2; i++){
     		if(enable_rx[i].read() == 1){
     			NoximFlit flit = fast_flit_rx[i].read();
-    			//cout<<"The router at node "<<local_id<<"has received a flit from "<< flit.src_id<<endl;
-    			if(flit.dst_id == local_id){
+    			//cout<<"actual match "<<local_id<<"has received a flit from "<< flit.src_id<<endl;
+    			if(flit.dst_id == local_id)
+    			{
     				incoming_buffer.Push(flit);
     				stats.receivedFlit(sc_time_stamp().to_double() / 1000, flit);
     				stats.power.Buffering();
-    				 }
-				
+    			}
+    			else
+				{
 				// Dapper change
 				for (int i = 0; i< flit.approx_len; i++)
 				{
+					//cout<<"nxt appx dest "<<flit.apx_dst_id[i]<< "at "<<local_id<<endl;
 					if(flit.apx_dst_id[i] == local_id)
 					{
+						//cout<<"approx match "<<flit.apx_dst_id[i]<<" local "<<local_id
+								//<<" going to "<<flit.dst_id<<endl;
 						flit.dst_id = local_id;   // changing the actual desti id to the local id for approximation
 						incoming_buffer.Push(flit);
 						stats.receivedFlit(sc_time_stamp().to_double() / 1000, flit);
 						stats.power.Buffering();
-
 					}
+				}
 				}
 
     			// Stupid code for calculating the flit arrival rate
@@ -88,7 +93,8 @@ void fc_router::txProcess()
     {
 	 // cout<<" fc_tx_process at node "<<local_id<<" check"<<endl;
 	  if(is_mc(local_id) && send_enable){
-		  if(!outgoing_buffer.IsEmpty()){
+		  if(!outgoing_buffer.IsEmpty())
+		  {
 			  NoximFlit flit = outgoing_buffer.Front();
 			  enable_tx[fast_line].write(1);
 			  fast_flit_tx[fast_line].write(flit);
@@ -144,7 +150,7 @@ void fc_router::pe_txprocess(){
 					req_tx.write(current_level_tx);
 					flit_tx.write(received_flit);
 
-					//cout<<"The router at node "<<local_id<<" has matched its dest_id with the flit, so absorbing it"<<endl;
+					//cout<<"The router at node "<<local_id<<" has the flit "<< received_flit.dst_id<<endl;
 
 					  incoming_buffer.Pop();
 				}

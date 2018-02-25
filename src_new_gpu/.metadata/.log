@@ -1,0 +1,12 @@
+!SESSION 2018-02-25 06:35:03.430 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-02-25 06:42:08.836
+!MESSAGE Indexed 'Dapper' (0 sources, 0 headers) in 0.045 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-02-25 06:45:26.644
+!MESSAGE Indexed 'Dapper' (0 sources, 0 headers) in 0.016 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
