@@ -1,0 +1,377 @@
+
+		Noxim - the NoC Simulator
+		(C) University of Catania
+
+
+Info: (I804) /IEEE_Std_1666/deprecated: use of () to specify sensitivity is deprecated, use << instead
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_sensitive_pos is deprecated use sc_sensitive << with pos() instead
+
+Warning: (W505) object already exists: NoC.Tile[00][00].Router. Latter declaration will be renamed to NoC.Tile[00][00].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][00].Router. Latter declaration will be renamed to NoC.Tile[00][00].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][00].Router. Latter declaration will be renamed to NoC.Tile[00][00].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][00].Router. Latter declaration will be renamed to NoC.Tile[00][00].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][01].Router. Latter declaration will be renamed to NoC.Tile[00][01].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][01].Router. Latter declaration will be renamed to NoC.Tile[00][01].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][01].Router. Latter declaration will be renamed to NoC.Tile[00][01].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][01].Router. Latter declaration will be renamed to NoC.Tile[00][01].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][02].Router. Latter declaration will be renamed to NoC.Tile[00][02].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][02].Router. Latter declaration will be renamed to NoC.Tile[00][02].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][02].Router. Latter declaration will be renamed to NoC.Tile[00][02].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][02].Router. Latter declaration will be renamed to NoC.Tile[00][02].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][03].Router. Latter declaration will be renamed to NoC.Tile[00][03].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][03].Router. Latter declaration will be renamed to NoC.Tile[00][03].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][03].Router. Latter declaration will be renamed to NoC.Tile[00][03].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[00][03].Router. Latter declaration will be renamed to NoC.Tile[00][03].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][00].Router. Latter declaration will be renamed to NoC.Tile[01][00].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][00].Router. Latter declaration will be renamed to NoC.Tile[01][00].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][00].Router. Latter declaration will be renamed to NoC.Tile[01][00].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][00].Router. Latter declaration will be renamed to NoC.Tile[01][00].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][01].Router. Latter declaration will be renamed to NoC.Tile[01][01].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][01].Router. Latter declaration will be renamed to NoC.Tile[01][01].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][01].Router. Latter declaration will be renamed to NoC.Tile[01][01].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][01].Router. Latter declaration will be renamed to NoC.Tile[01][01].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][02].Router. Latter declaration will be renamed to NoC.Tile[01][02].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][02].Router. Latter declaration will be renamed to NoC.Tile[01][02].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][02].Router. Latter declaration will be renamed to NoC.Tile[01][02].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][02].Router. Latter declaration will be renamed to NoC.Tile[01][02].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][03].Router. Latter declaration will be renamed to NoC.Tile[01][03].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][03].Router. Latter declaration will be renamed to NoC.Tile[01][03].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][03].Router. Latter declaration will be renamed to NoC.Tile[01][03].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[01][03].Router. Latter declaration will be renamed to NoC.Tile[01][03].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][00].Router. Latter declaration will be renamed to NoC.Tile[02][00].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][00].Router. Latter declaration will be renamed to NoC.Tile[02][00].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][00].Router. Latter declaration will be renamed to NoC.Tile[02][00].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][00].Router. Latter declaration will be renamed to NoC.Tile[02][00].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][01].Router. Latter declaration will be renamed to NoC.Tile[02][01].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][01].Router. Latter declaration will be renamed to NoC.Tile[02][01].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][01].Router. Latter declaration will be renamed to NoC.Tile[02][01].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][01].Router. Latter declaration will be renamed to NoC.Tile[02][01].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][02].Router. Latter declaration will be renamed to NoC.Tile[02][02].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][02].Router. Latter declaration will be renamed to NoC.Tile[02][02].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][02].Router. Latter declaration will be renamed to NoC.Tile[02][02].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][02].Router. Latter declaration will be renamed to NoC.Tile[02][02].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][03].Router. Latter declaration will be renamed to NoC.Tile[02][03].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][03].Router. Latter declaration will be renamed to NoC.Tile[02][03].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][03].Router. Latter declaration will be renamed to NoC.Tile[02][03].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[02][03].Router. Latter declaration will be renamed to NoC.Tile[02][03].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][00].Router. Latter declaration will be renamed to NoC.Tile[03][00].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][00].Router. Latter declaration will be renamed to NoC.Tile[03][00].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][00].Router. Latter declaration will be renamed to NoC.Tile[03][00].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][00].Router. Latter declaration will be renamed to NoC.Tile[03][00].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][01].Router. Latter declaration will be renamed to NoC.Tile[03][01].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][01].Router. Latter declaration will be renamed to NoC.Tile[03][01].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][01].Router. Latter declaration will be renamed to NoC.Tile[03][01].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][01].Router. Latter declaration will be renamed to NoC.Tile[03][01].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][02].Router. Latter declaration will be renamed to NoC.Tile[03][02].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][02].Router. Latter declaration will be renamed to NoC.Tile[03][02].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][02].Router. Latter declaration will be renamed to NoC.Tile[03][02].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][02].Router. Latter declaration will be renamed to NoC.Tile[03][02].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][03].Router. Latter declaration will be renamed to NoC.Tile[03][03].Router_0
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][03].Router. Latter declaration will be renamed to NoC.Tile[03][03].Router_1
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][03].Router. Latter declaration will be renamed to NoC.Tile[03][03].Router_2
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+
+Warning: (W505) object already exists: NoC.Tile[03][03].Router. Latter declaration will be renamed to NoC.Tile[03][03].Router_3
+In file: ../../../../src/sysc/kernel/sc_object_manager.cpp:149
+Reset... done! Now running for 100000 cycles...
+the processing element 12stops at 3820860000.00000000
+the processing element 15stops at 3821061000.00000000
+the processing element 14stops at 3821311000.00000000
+the processing element 4stops at 3821376000.00000000
+the processing element 11stops at 3821398000.00000000
+the processing element 10stops at 3821410000.00000000
+the processing element 9stops at 3821432000.00000000
+the processing element 3stops at 3821449000.00000000
+the processing element 0stops at 3821503000.00000000
+the processing element 6stops at 3821622000.00000000
+the processing element 5stops at 3821705000.00000000
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+Noxim simulation completed.
+ ( 3821705.00000000 cycles executed)
+%% Total received packets in slice: 0 166190%% Total received packets in slice: 1 207588%% Total received packets in slice: 2 249167%% Total received packets in slice: 3 290795%% Total received packets in slice: 4 332380% Total received packets: 332380
+% Total received flits: 6027118
+% Global average throughput (flits/cycle): 0.03141724
+% Throughput (flits/cycle/IP): 5.91357732
+% Max delay (cycles): 262.00000000
+% Total energy (J): 0.00000213
+% received flits from slice 0 498786
+% transmitted flits from slice 0 498787
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 41672
+average delay of the routers in this slice 22.80166539
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 41441
+average delay of the routers in this slice 22.84479139
+received packets in this slice 41411
+average delay of the routers in this slice 22.73572239
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 41666
+average delay of the routers in this slice 22.95391926
+received packets in this slice 0
+received packets in this slice 0
+% average delay of slice 0 22.83415970
+% received flits from slice 1 1378238
+% transmitted flits from slice 1 1378238
+received packets in this slice 3447
+average delay of the routers in this slice 86.16884247
+received packets in this slice 3475
+average delay of the routers in this slice 82.55827338
+received packets in this slice 0
+received packets in this slice 3365
+average delay of the routers in this slice 86.54442793
+received packets in this slice 3500
+average delay of the routers in this slice 84.83314286
+received packets in this slice 3528
+average delay of the routers in this slice 82.12358277
+received packets in this slice 3574
+average delay of the routers in this slice 80.54504757
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 3274
+average delay of the routers in this slice 81.29260843
+received packets in this slice 3449
+average delay of the routers in this slice 81.53319803
+received packets in this slice 3551
+average delay of the routers in this slice 83.07124754
+received packets in this slice 3510
+average delay of the routers in this slice 81.99202279
+received packets in this slice 0
+received packets in this slice 3382
+average delay of the routers in this slice 82.58545240
+received packets in this slice 3343
+average delay of the routers in this slice 85.05892911
+% average delay of slice 1 83.17904247
+% received flits from slice 2 1384494
+% transmitted flits from slice 2 1384494
+received packets in this slice 3451
+average delay of the routers in this slice 82.51984932
+received packets in this slice 3460
+average delay of the routers in this slice 83.45202312
+received packets in this slice 0
+received packets in this slice 3410
+average delay of the routers in this slice 81.80293255
+received packets in this slice 3451
+average delay of the routers in this slice 80.53607650
+received packets in this slice 3635
+average delay of the routers in this slice 82.91279230
+received packets in this slice 3549
+average delay of the routers in this slice 79.79092702
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 3336
+average delay of the routers in this slice 79.68585132
+received packets in this slice 3477
+average delay of the routers in this slice 81.43687087
+received packets in this slice 3531
+average delay of the routers in this slice 83.93372982
+received packets in this slice 3490
+average delay of the routers in this slice 80.86762178
+received packets in this slice 0
+received packets in this slice 3388
+average delay of the routers in this slice 82.52066116
+received packets in this slice 3401
+average delay of the routers in this slice 86.34754484
+% average delay of slice 2 82.15199981
+% received flits from slice 3 1385198
+% transmitted flits from slice 3 1385198
+received packets in this slice 3446
+average delay of the routers in this slice 83.12594312
+received packets in this slice 3403
+average delay of the routers in this slice 80.93858360
+received packets in this slice 0
+received packets in this slice 3419
+average delay of the routers in this slice 81.75080433
+received packets in this slice 3532
+average delay of the routers in this slice 85.04643262
+received packets in this slice 3620
+average delay of the routers in this slice 80.52154696
+received packets in this slice 3565
+average delay of the routers in this slice 83.41486676
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 3283
+average delay of the routers in this slice 77.93055133
+received packets in this slice 3525
+average delay of the routers in this slice 82.40453901
+received packets in this slice 3564
+average delay of the routers in this slice 81.58810325
+received packets in this slice 3513
+average delay of the routers in this slice 87.73526900
+received packets in this slice 0
+received packets in this slice 3386
+average delay of the routers in this slice 80.61075015
+received packets in this slice 3372
+average delay of the routers in this slice 82.38196916
+% average delay of slice 3 82.31704622
+% received flits from slice 4 1382682
+% transmitted flits from slice 4 1382682
+received packets in this slice 3434
+average delay of the routers in this slice 84.01397787
+received packets in this slice 3511
+average delay of the routers in this slice 81.25833096
+received packets in this slice 0
+received packets in this slice 3362
+average delay of the routers in this slice 87.86079714
+received packets in this slice 3469
+average delay of the routers in this slice 83.30873451
+received packets in this slice 3582
+average delay of the routers in this slice 83.25293132
+received packets in this slice 3547
+average delay of the routers in this slice 83.34648999
+received packets in this slice 0
+received packets in this slice 0
+received packets in this slice 3341
+average delay of the routers in this slice 83.02484286
+received packets in this slice 3492
+average delay of the routers in this slice 81.57159221
+received packets in this slice 3560
+average delay of the routers in this slice 84.50449438
+received packets in this slice 3492
+average delay of the routers in this slice 86.74799542
+received packets in this slice 0
+received packets in this slice 3415
+average delay of the routers in this slice 83.15139092
+received packets in this slice 3380
+average delay of the routers in this slice 83.17633136
+% average delay of slice 4 83.75909583
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call
+             as the first statement in your sc_main() function:
+
+  sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated",
+                                           sc_core::SC_DO_NOTHING );
+

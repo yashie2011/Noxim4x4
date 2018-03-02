@@ -1,0 +1,100 @@
+node: 32 matching clock cycle 1.37309e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.37309e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.37309e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.37309e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.37309e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.3731e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.3731e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.3731e+06, pushing packet into request queue 
+node: 32 matching clock cycle 1.3731e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37311e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 36 matching clock cycle 1.37312e+06, pushing packet into request queue 
+node: 38 matching clock cycle 1.37313e+06, pushing packet into request queue 
+node: 38 matching clock cycle 1.37313e+06, pushing packet into request queue 
+node: 38 matching clock cycle 1.37313e+06, pushing packet into request queue 
+node: 40 matching clock cycle 1.37313e+06, pushing packet into request queue 
+the processing element 58stops at 1401471000.00000000
+the processing element 37stops at 1450271000.00000000
+the processing element 41stops at 1508111000.00000000
+the processing element 45stops at 1510986000.00000000
+the processing element 33stops at 1516199000.00000000
+the processing element 47stops at 1517094000.00000000
+the processing element 27stops at 1529406000.00000000
+the processing element 60stops at 1539869000.00000000
+the processing element 21stops at 1546786000.00000000
+the processing element 31stops at 1608409000.00000000
+the processing element 7stops at 1657742000.00000000
+the processing element 10stops at 1662571000.00000000
+the processing element 4stops at 1671175000.00000000
+the processing element 52stops at 1683960000.00000000
+the processing element 29stops at 1699131000.00000000
+the processing element 43stops at 1700980000.00000000
+the processing element 23stops at 1707011000.00000000
+the processing element 14stops at 1708088000.00000000
+the processing element 39stops at 1722394000.00000000
+the processing element 35stops at 1731375000.00000000
+the processing element 12stops at 1735861000.00000000
+the processing element 63stops at 1770632000.00000000
+the processing element 25stops at 1802730000.00000000
+the processing element 50stops at 1813335000.00000000
+the processing element 17stops at 1836224000.00000000
+the processing element 16stops at 1886333000.00000000
+the processing element 54stops at 1887347000.00000000
+the processing element 0stops at 1894421000.00000000
+the processing element 34stops at 1900730000.00000000
+the processing element 2stops at 1904606000.00000000
+the processing element 18stops at 1942826000.00000000
+the processing element 24stops at 1956983000.00000000
+the processing element 28stops at 1981619000.00000000
+the processing element 19stops at 2008315000.00000000
+the processing element 42stops at 2009559000.00000000
+the processing element 60stops at 2027811000.00000000
+the processing element 22stops at 2037303000.00000000
+the processing element 53stops at 2038913000.00000000
+the processing element 58stops at 2042646000.00000000
+the processing element 36stops at 2046652000.00000000
+the processing element 16stops at 2052135000.00000000
+the processing element 63stops at 2056937000.00000000
+the processing element 42stops at 2061401000.00000000
+the processing element 44stops at 2061511000.00000000
+the processing element 37stops at 2065970000.00000000
+the processing element 54stops at 2066852000.00000000
+the processing element 59stops at 2074276000.00000000
+the processing element 53stops at 2075590000.00000000
+the processing element 31stops at 2078516000.00000000
+the processing element 47stops at 2080296000.00000000
+the processing element 49stops at 2080717000.00000000
+the processing element 28stops at 2083951000.00000000
+the processing element 38stops at 2084575000.00000000
+the processing element 51stops at 2085482000.00000000
+the processing element 34stops at 2086233000.00000000
+the processing element 23stops at 2087272000.00000000
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+Noxim simulation completed.
+ ( 2087418.00000000 cycles executed)
+% Total received packets: 669587
+% Global average throughput (flits/cycle): 0.06025496
+% Throughput (flits/cycle/IP): 2.51367367
+% Max delay (cycles): 700.00000000
+% Total energy (J): 1.1187766487e-03
+% received flits to slice 0 1004463
+% transmitted flits from slice 0 1004473
+% average delay of slice 0 3.2064329896e+01
+% received flits to slice 1 1339069
+% transmitted flits from slice 1 1339196
+% average delay of slice 1 1.9366497792e+02
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call
+             as the first statement in your sc_main() function:
+
+  sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated",
+                                           sc_core::SC_DO_NOTHING );
+
