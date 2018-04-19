@@ -1,0 +1,83 @@
+
+		Noxim - the NoC Simulator
+		(C) University of Catania
+
+
+Info: (I804) /IEEE_Std_1666/deprecated: use of () to specify sensitivity is deprecated, use << instead
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_sensitive_pos is deprecated use sc_sensitive << with pos() instead
+Reset... done! Now running for 100000 cycles...
+the processing element 9stops at 29931747000.00000000
+the processing element 9stops at 29931748000.00000000
+the processing element 6stops at 29953622000.00000000
+the processing element 6stops at 29953623000.00000000
+the processing element 14stops at 29954907000.00000000
+the processing element 14stops at 29954908000.00000000
+the processing element 1stops at 29973532000.00000000
+the processing element 1stops at 29973533000.00000000
+the processing element 5stops at 29999082000.00000000
+the processing element 5stops at 29999083000.00000000
+the processing element 0stops at 30000782000.00000000
+the processing element 0stops at 30000783000.00000000
+the processing element 11stops at 30000987000.00000000
+the processing element 11stops at 30000988000.00000000
+the processing element 10stops at 30003492000.00000000
+the processing element 10stops at 30003493000.00000000
+the processing element 4stops at 30003997000.00000000
+the processing element 4stops at 30003998000.00000000
+the processing element 15stops at 30004792000.00000000
+the processing element 15stops at 30004793000.00000000
+the processing element 12stops at 30029907000.00000000
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+Noxim simulation completed.
+ ( 30029907.00000000 cycles executed)
+%% Total received packets in slice: 0 4799276% Total received packets: 4799276
+% Total received flits: 31194985
+% Global average throughput (flits/cycle): 0.06335369
+% Throughput (flits/cycle/IP): 19.89476084
+% Max delay (cycles): 16513.00000000
+% Total energy (J): 0.00012820
+% received flits from slice 0 31196481
+% transmitted flits from slice 0 31196501
+received packets in this slice 199985
+average delay of the routers in this slice 177.92714454
+received packets in this slice 199989
+average delay of the routers in this slice 162.63790508
+received packets in this slice 599952
+average delay of the routers in this slice 24.69211870
+received packets in this slice 199767
+average delay of the routers in this slice 155.33542077
+received packets in this slice 199986
+average delay of the routers in this slice 173.01000070
+received packets in this slice 199988
+average delay of the routers in this slice 177.98797428
+received packets in this slice 199991
+average delay of the routers in this slice 176.78577036
+received packets in this slice 599948
+average delay of the routers in this slice 37.65482842
+received packets in this slice 599748
+average delay of the routers in this slice 39.82208194
+received packets in this slice 199985
+average delay of the routers in this slice 178.72960472
+received packets in this slice 199991
+average delay of the routers in this slice 178.00695031
+received packets in this slice 199989
+average delay of the routers in this slice 172.99554976
+received packets in this slice 199988
+average delay of the routers in this slice 150.46517291
+received packets in this slice 599984
+average delay of the routers in this slice 24.80176471
+received packets in this slice 199992
+average delay of the routers in this slice 149.10724429
+received packets in this slice 199993
+average delay of the routers in this slice 177.61703660
+% average delay of slice 0 100.48032828
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call
+             as the first statement in your sc_main() function:
+
+  sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated",
+                                           sc_core::SC_DO_NOTHING );
+

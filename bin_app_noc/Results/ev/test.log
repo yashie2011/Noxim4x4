@@ -1,0 +1,62 @@
+
+		Noxim - the NoC Simulator
+		(C) University of Catania
+
+
+Info: (I804) /IEEE_Std_1666/deprecated: use of () to specify sensitivity is deprecated, use << instead
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_sensitive_pos is deprecated use sc_sensitive << with pos() instead
+Reset... done! Now running for 100000 cycles...
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+Noxim simulation completed.
+ ( 165569132.00000000 cycles executed)
+%% Total received packets in slice: 0 146667% Total received packets: 146667
+% Total received flits: 944409
+% Global average throughput (flits/cycle): 0.00034930
+% Throughput (flits/cycle/IP): 0.60230166
+% Max delay (cycles): 668.00000000
+% Total energy (J): 0.00000369
+% received flits from slice 0 944509
+% transmitted flits from slice 0 944519
+received packets in this slice 6111
+average delay of the routers in this slice 87.95499918
+received packets in this slice 6452
+average delay of the routers in this slice 84.06711097
+received packets in this slice 16189
+average delay of the routers in this slice 29.01661622
+received packets in this slice 6000
+average delay of the routers in this slice 86.94500000
+received packets in this slice 5820
+average delay of the routers in this slice 83.98969072
+received packets in this slice 6095
+average delay of the routers in this slice 82.95816243
+received packets in this slice 6085
+average delay of the routers in this slice 85.31881676
+received packets in this slice 16093
+average delay of the routers in this slice 28.88833654
+received packets in this slice 20248
+average delay of the routers in this slice 28.90838601
+received packets in this slice 6063
+average delay of the routers in this slice 84.18258288
+received packets in this slice 6119
+average delay of the routers in this slice 85.79784278
+received packets in this slice 6260
+average delay of the routers in this slice 86.38897764
+received packets in this slice 6072
+average delay of the routers in this slice 87.47134387
+received packets in this slice 20804
+average delay of the routers in this slice 28.39391463
+received packets in this slice 6106
+average delay of the routers in this slice 85.59416967
+received packets in this slice 6150
+average delay of the routers in this slice 89.58617886
+% average delay of slice 0 57.31884473
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call
+             as the first statement in your sc_main() function:
+
+  sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated",
+                                           sc_core::SC_DO_NOTHING );
+
