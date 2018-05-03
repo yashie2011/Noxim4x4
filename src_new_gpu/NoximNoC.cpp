@@ -26,18 +26,17 @@ void NoximNoC::buildMesh()
 	for (int j = 0; j < NoximGlobalParams::mesh_dim_y; j++) {
 		// Creating a benchmark module for each tile
 	    char b_name[20];
-	    char nodeid[20];
+	    char filename[20];
 	    sprintf(b_name, "bench[%02d][%02d]", i, j);
 	    int id = (j* NoximGlobalParams::mesh_dim_x)+ i;
 	    // Adapting to the ID numbers of the gpgpusim    -- needs change when expanding
-	    	if(id > m1 && id < m2 )
-	    		id--;
-	    	if(id > m3 && id < m4 )
-	    		id = id-3;
-	    	if(id >= m4 )
-	    		id = id -4;
-	    sprintf(nodeid, "node[%d].txt",id );
-		b_marks[i][j] = new benchmark(b_name, nodeid, id);
+	    if (is_mc(id)){
+	    	sprintf(filename, "mc[%d].txt",pseudo_ids[id]);
+	    }
+	    else{
+	    	sprintf(filename, "node[%d].txt",pseudo_ids[id]);
+	    }
+		b_marks[i][j] = new benchmark(b_name, filename, id);
 		b_marks[i][j]->clock(clock);
 		b_marks[i][j]->reset(reset);
 
@@ -212,8 +211,14 @@ void NoximNoC::sim_stop_poller()
 			}
 		}
 	}
-		if(sim_Stop >= NUM_CORES)
+		if(sim_Stop >= NUM_CORES){
+			for (int i = 0; i < NoximGlobalParams::mesh_dim_x; i++) {
+				for (int j = 0; j < NoximGlobalParams::mesh_dim_y; j++) {
+					error += t[i][j]->pe->get_error();
+				}
+			}
 			sc_stop();
+		}
 	}
 }
 

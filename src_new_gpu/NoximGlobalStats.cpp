@@ -320,6 +320,7 @@ void NoximGlobalStats::showStats(std::ostream & out, bool detailed)
     	out << "% transmitted flits from slice "<< k<<" "<<gettransmittedflits_slice(k)<<endl;
     	out << "% average delay of slice "<<k<<" "<<getAverageDelay(k)<<endl;
     }
+    out << "% Total Error :"<< noc->error << endl;
     //showReceivedflits();
 
 

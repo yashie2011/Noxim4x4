@@ -405,6 +405,9 @@ void parseCmdLine(int arg_num, char *arg_vet[])
 		    else if (!strcmp(arg_vet[++i], "false"))
 		    	NoximGlobalParams::show_log = false;
 	    }
+	    else if (!strcmp(arg_vet[i], "-bench")){
+	    	NoximGlobalParams::bench = atoi(arg_vet[++i]);
+	    }
 	    else {
 		cerr << "Error: Invalid option: " << arg_vet[i] << endl;
 		exit(1);

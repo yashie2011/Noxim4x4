@@ -63,7 +63,7 @@ SC_MODULE(NoximNoC)
     NoximGlobalTrafficTable gttable;
 
     int sim_Stop;
-
+    double error;
     void sim_stop_poller();
     //---------- Mau experiment <start>
     void flitsMonitor() {

@@ -7,7 +7,7 @@ DEBUG  = -g
 OTHER  = # -Wall -Wno-deprecated
 CFLAGS = $(OPT) $(OTHER) # $(DEBUG)
 
-VPATH = ../src:.
+VPATH = ../src_app_base:.
 MODULE = noxim
 SRCS = ./NoximNoC.cpp ./NoximRouter.cpp ./benchmark.cpp ./NoximProcessingElement.cpp ./NoximBuffer.cpp \
 	./NoximStats.cpp ./NoximGlobalStats.cpp ./NoximGlobalRoutingTable.cpp \

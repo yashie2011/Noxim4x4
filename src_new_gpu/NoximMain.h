@@ -16,8 +16,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "benchmark.h"
-
+//#include "constants.h"
 using namespace std;
 
 // Define the directions as numbers
@@ -104,6 +103,8 @@ using namespace std;
 // TODO by Fafa - this MUST be removed!!! Use only STL vectors instead!!!
 #define MAX_STATIC_DIM 32
 
+extern const int pseudo_ids[];
+
 typedef unsigned int uint;
 
 // NoximGlobalParams -- used to forward configuration to every sub-block
@@ -154,6 +155,8 @@ enum NoximFlitType {
 
 // Memory controller tile id
 enum mem_controllers {m1 = 2, m2 = 7, m3 = 8, m4 = 13};
+enum node_locations {n1 = 0, n2 = 1, n3 = 3, n4 = 4,
+	n5 = 5, n6 = 6, n7 = 9, n8 = 10, n9 = 11, n10 = 12, n11 = 14, n12 = 15};
 
 // NoximPayload -- Payload definition
 struct NoximPayload {
@@ -173,8 +176,8 @@ struct NoximPacket {
     bool use_low_voltage_path;
     bool packet_returned ;  // To check for the packet returned
     int reply_data_size;
-    double ack_msg;
     int  computation_time;
+    int data_value;
 
     // Constructors
     NoximPacket() { }
@@ -191,7 +194,6 @@ struct NoximPacket {
 	flit_left = sz;
 	use_low_voltage_path = false;
 	reply_data_size = rp_sz;
-	ack_msg =0;
 	computation_time = 0;
     }
 };
@@ -241,7 +243,9 @@ struct NoximFlit {
     int hop_no;			// Current number of hops from source to destination
     bool use_low_voltage_path;
     long data_size;
-    double ack_msg;
+    int data_value;
+    int approx_data_values[3];
+    int recv_list[3];
     bool flit_sent;
     uint tag;
 

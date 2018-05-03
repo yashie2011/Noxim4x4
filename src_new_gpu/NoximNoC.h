@@ -66,7 +66,7 @@ SC_MODULE(NoximNoC)
     int sim_Stop;
     int gam_counter;
     int enable_timer;
-
+    double error;
     void sim_stop_poller();
     void gam();
     void normalize(vector<double> &x);

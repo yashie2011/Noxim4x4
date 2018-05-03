@@ -38,7 +38,7 @@ void NoximProcessingElement::sim_stop_poll()
 		if(!is_mc(id2Coord(local_id)))
 		{
 			//cout<<" The nodeid "<< local_id <<" sent "<< sent_requests <<" reqs and the trace len is "<<b_mark.get_trace_len() <<endl;
-			if((sent_requests >= (b_mark.get_trace_len()-1))||( sent_requests > 18000)){
+			if((sent_requests >= (b_mark.get_trace_len()-101))||( sent_requests > 18000)){
 
 				cout << std::fixed;
 				cout << std::setprecision(8);
@@ -79,18 +79,7 @@ void NoximProcessingElement::rxProcess()
     			    NoximCoord dest_id = id2Coord(flit_tmp.dst_id);
     			    NoximCoord src_id = id2Coord(flit_tmp.src_id);
     			    // Then check if the current PE is a memory controller
-    			    //pre << "at node "<< local_id<<" ack_msg: "<<flit_tmp.ack_msg<<" last_packet: "<<last_packet<<endl;
-    			    if(is_mc(dest_id) && !reply_queue_full()){
-
-        			    // If yes, push a structure of reply_info into the queue
-    			    	if(flit_tmp.flit_type == FLIT_TYPE_HEAD){
-    			    	reply_data temp_reply;
-    			    	temp_reply.data_size= flit_tmp.data_size;
-    			    	temp_reply.dest_id = flit_tmp.src_id;
-    			    	temp_reply.return_time = (sc_time_stamp().to_double() / 1000) + randInt(120, 150);
-    			    	temp_reply.ack_msg = flit_tmp.timestamp;
-    			    	reply_queue.push_back(temp_reply);
-    			    	}
+    			    if(is_mc(dest_id)){
 
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
@@ -99,16 +88,28 @@ void NoximProcessingElement::rxProcess()
     			    }
     			    else
     			    {
-    			    	if( flit_tmp.ack_msg == last_packet && flit_tmp.flit_type == FLIT_TYPE_HEAD )
+    			    	if(flit_tmp.flit_type == FLIT_TYPE_HEAD )
     			    	{
     			    		// Start a timer that should be increment at every cycle
-    			    		start_clock = true;
-    	   			    	//cout<<" Response recieved from MC: src_id == "<< flit_tmp.src_id<<" dest_id == "<<local_id<<endl;
-    	    			   // pre<<" with time stamp: "<< flit_tmp.timestamp<< " received at: "<< (sc_time_stamp().to_double() / 1000)<<endl;
-    			    	  //last_packet = 0;
+    			    		//
     			    	}
+    			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
+
+    			    		recv_pkts ++;
+    			    		for (int i=0; i < BC_RECEIVERS; i++){
+    			    			if (!is_mc(local_id) && flit_tmp.recv_list[i] == local_id){
+    			    				if (flit_tmp.data_value > 0)
+    			    					error += (flit_tmp.data_value - flit_tmp.approx_data_values[i])/flit_tmp.data_value;
+    			    				cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+    			    			}
+    			    		}
+
+    			    	}
+    			    	start_clock = true;
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
+
+        			    //cout<< "Receved packet from src "<< flit_tmp.src_id << " at "<<local_id<<endl;
     			    }
 
     			    if (NoximGlobalParams::verbose_mode > VERBOSE_OFF) {
@@ -154,6 +155,8 @@ void NoximProcessingElement::txProcess()
     	if(start_clock)
     		computation_clock++;
     	if (start_clock && computation_clock >= computation_time)
+    		send = true;
+    	else if (interface_buf.size() > 100)
     		send = true;
 
 
@@ -249,13 +252,14 @@ void NoximProcessingElement::push_packet(){
 		if( packet_queue[slice].size() < 150 ){//&& packet.packet_returned)   {   // Added since canshot is irrelevant now!
 
 			packet.timestamp =  sc_time_stamp().to_double() /1000;
-			//cout<<" Packet with src "<< packet.src_id<< " dest_"<< packet.dst_id<<" queued, "<<endl;
+			//cout<<" Packet with src "<< packet.src_id<< " dest "<< packet.dst_id<<" queued, "<<endl;
 			if(!is_mc(src_coord))
 			{
 				last_packet = packet.timestamp;
 				start_clock = false;
 				send = false;
 				computation_time = packet.computation_time;
+				//cout <<"computation time "<<computation_time << endl;
 			}
 			else {
 
@@ -287,13 +291,13 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
     flit.use_low_voltage_path = packet.use_low_voltage_path;
     flit.data_size = packet.reply_data_size;
 
-    //to calculate app exe time
-    flit.ack_msg = packet.ack_msg;
-
     if (packet.size == packet.flit_left)
 	flit.flit_type = FLIT_TYPE_HEAD;
     else if (packet.flit_left == 1)
-	flit.flit_type = FLIT_TYPE_TAIL;
+    {
+    	flit.flit_type = FLIT_TYPE_TAIL;
+    	flit.data_value = packet.data_value;
+    }
     else
 	flit.flit_type = FLIT_TYPE_BODY;
 
@@ -492,82 +496,37 @@ NoximPacket NoximProcessingElement::trafficBenchmark(){
 	NoximCoord src_coord, dst;
 	src_coord = id2Coord(local_id);
 	p.packet_returned = false;
+	// Normal packet injection.
+	//TODO: For approx NoC, and Dapper, this part changes
+	if(1){
+		bool flag;
+		flag= b_mark.packet_injection_response_req(local_id, ret_comm);
 
-	// If the source tile is a memory controller tile, then choose reply trace check
-
-	// checking for the memory controller this needs to be modified when changing the mesh size
-		bool mem_controller = is_mc(src_coord);
-	//===================================================================
-		if(mem_controller){
-			// check the queue for a packet
-			double current_time =  sc_time_stamp().to_double() / 1000;
-			// if its current time is matching with the return_time
-
-			if(!reply_queue.empty()) {
-				struct compare my_compare;
-				std::sort(reply_queue.begin(), reply_queue.end(), my_compare);
-				/*pre_reply<<"nodeid "<<local_id<<"printing queue contents ";
-				for(std::vector<reply_data>::const_iterator i = reply_queue.begin() ; i != reply_queue.end(); i++ ){
-					pre_reply<< i->return_time <<" ";
-				}*/
-				//pre_reply<<endl;
-				if( !reply_queue.empty()  && current_time <=  reply_queue.front().return_time){
-					reply_data temp_reply = reply_queue.front();
-					//pre_reply<<" Cycle matched at MC "<< current_time;
-					//pre_reply <<"reply queue length: "<< reply_queue.size();
-					p.packet_returned = true;
-					p.dst_id = temp_reply.dest_id;
-					p.flit_left = (temp_reply.data_size/FLIT_SIZE)+2;
-					p.timestamp = sc_time_stamp().to_double() / 1000;
-					p.size = p.flit_left;
-					p.ack_msg = temp_reply.ack_msg;
-					//cout<<"MC sending the packet with src "<< src_coord<<" and dest "<< id2Coord(p.dst_id) << " size "<< p.size<<" flag "<<p.packet_returned<<endl;
-					reply_queue.erase(reply_queue.begin());
-					if(p.packet_returned)
-					{
-						//cout<< "packet returned by bench.cpp in "<< local_id<<" at "<<p.timestamp<<endl;
-						interface_buf.push(p);
-					}// Adding into the infinite buffer
+		if(flag){
+			// Iterate over the vector and push the packets into the int_buffer
+			for(std::vector<comm>::iterator it = ret_comm.begin(); it != ret_comm.end(); ++it) {
+				/* std::cout << *it; ... */
+				p.dst_id = it->dest_id;
+				p.flit_left = 2+(it->data_size/8);    // Request network sends 3 flits only
+				p.timestamp = sc_time_stamp().to_double() / 1000;
+				p.size = p.flit_left;
+				p.packet_returned = flag;
+				p.reply_data_size = it->data_size;
+				p.data_value = it->data_value;
+				p.computation_time=it->comp_time;
+				p.is_approx = it->approx;
+				if(p.packet_returned)
+				{
+					//cout<< "packet returned by bench.cpp in "<< local_id<<" at "<<p.timestamp<<endl;
+					interface_buf.push(p);
+				}// Adding into the infinite buffer
 			}
-			}
-
-			 //send a packet to the corresponding destination
-			 //else dont respond
-		}
-
-	// else if the source tile is not a memory controller tile, then choose a request trace check
-		//else{
-		if(!mem_controller){
-			bool flag;
-			flag= b_mark.packet_injection_response_req(local_id, ret_comm);    //Core node Ids are handled in the benchmark function
-			//cout<< "Benchmark rep pack gen at: "<<sc_time_stamp().to_double()/1000;
-			//cout<< "Shader Core  src id "<<local_id<<" dest id "<<temp_comm.dest_id;
-			//cout<< "Packet present status: "<< temp_comm.status<<endl;
-
-
-			if(flag){
-				// Iterate over the vector and push the packets into the int_buffer
-				for(std::vector<comm>::iterator it = ret_comm.begin(); it != ret_comm.end(); ++it) {
-				    /* std::cout << *it; ... */
-					p.dst_id = it->dest_id;
-					p.flit_left =  3;    // 2+(temp_comm.data_size/8);    // Request network sends 3 flits only
-					p.timestamp = sc_time_stamp().to_double() / 1000;
-					p.size = p.flit_left;
-					p.packet_returned = flag;
-					p.reply_data_size = it->data_size;
-					p.computation_time=it->comp_time;
-					if(p.packet_returned)
-					{
-						//cout<< "packet returned by bench.cpp in "<< local_id<<" at "<<p.timestamp<<endl;
-						interface_buf.push(p);
-					}// Adding into the infinite buffer
-				}
-				ret_comm.clear();  // Clearing the vector to be sent in the next cycle
-			}
+			ret_comm.clear();  // Clearing the vector to be sent in the next cycle
 		}
    //=======================================================================
 		return p;
 
+}
 }
 
 void NoximProcessingElement::setBit(int &x, int w, int v)
@@ -681,11 +640,31 @@ int NoximProcessingElement::getRandomSize()
 		   NoximGlobalParams::max_packet_size);
 }
 
-bool NoximProcessingElement::reply_queue_full(){
+NoximPacket NoximProcessingElement::approximate(NoximPacket pkt){
+	int value = pkt.data_value;
+	if(pkt.is_approx){
+		int err_thresh;
+		// go to each value in benchmark and send it to the error tolerance
+		for (int i =0; i < 8; i++){
+			int most_used = *(most_used_values[NoximGlobalParams::bench] + i);
+			err_thresh = get_error_tolerance(most_used);
+			if (abs(pkt.data_value - most_used) < err_thresh){
+				pkt.flit_left = 3;  // head+ tail + 1 filt for data
+				pkt.approx_data_value = most_used;
+				break;
+			}
 
-	if(reply_queue.size() < MC_BUFF_CAP)
-		return false;
+		}
+		return pkt;
+		// if error tolerance is less than data bit shifted right 5 times, make the data size to 3 flits
+		// fill the approximate value with the data from the table
+	}
 	else
-		return true;
+		return pkt;
 }
 
+int NoximProcessingElement::get_error_tolerance(int data){
+	// right shift the value by 5 times
+	return (data >>= 5);
+
+}
