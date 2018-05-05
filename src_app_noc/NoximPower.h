@@ -47,8 +47,9 @@ hop interconnect is 0.384nJ.
 #define PWR_STANDBY                0.0001e-9/2.0
 */
 
-#define PWR_BUFF_FULL 2.26e-11
-#define PWR_BUFF_READ 3.45e-12
+//modified buffer read and write power values for compression
+#define PWR_BUFF_FULL 4.26e-11
+#define PWR_BUFF_READ 6.45e-12
 #define PWR_ARB_FULL 3.3e-13
 #define PWR_CROSS_FULL 2.9e-12
 

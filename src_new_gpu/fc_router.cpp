@@ -30,6 +30,19 @@ void fc_router::rxProcess()
     				stats.receivedFlit(sc_time_stamp().to_double() / 1000, flit);
     				stats.power.Buffering();
     				 }
+				
+				// Dapper change
+				for (int i = 0; i< flit.approx_len; i++)
+				{
+					if(flit.apx_dst_id[i] == local_id)
+					{
+						flit.dst_id = local_id;   // changing the actual desti id to the local id for approximation
+						incoming_buffer.Push(flit);
+						stats.receivedFlit(sc_time_stamp().to_double() / 1000, flit);
+						stats.power.Buffering();
+
+					}
+				}
 
     			// Stupid code for calculating the flit arrival rate
     			NoximCoord src_coord = id2Coord(flit.src_id);

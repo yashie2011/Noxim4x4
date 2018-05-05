@@ -96,13 +96,11 @@ void NoximProcessingElement::rxProcess()
     			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
 
     			    		recv_pkts ++;
-    			    		for (int i=0; i < BC_RECEIVERS; i++){
-    			    			if (!is_mc(local_id) && flit_tmp.recv_list[i] == local_id){
-    			    				if (flit_tmp.data_value > 0)
-    			    					error += (flit_tmp.data_value - flit_tmp.approx_data_values[i])/flit_tmp.data_value;
-    			    				cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
-    			    			}
-    			    		}
+    			    		if (!is_mc(local_id)){
+    			    		if (flit_tmp.data_value > 0)
+    			    			error += (flit_tmp.data_value - flit_tmp.approx_data_values[0])/flit_tmp.data_value;
+    			    	}
+    			    		cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
 
     			    	}
     			    	start_clock = true;
@@ -246,6 +244,8 @@ void NoximProcessingElement::push_packet(){
 		src_coord = id2Coord(local_id);
 		if (!interface_buf.empty())  {  // This should cover the entire module
 		packet = interface_buf.front();
+		if(is_mc(local_id))
+			approximate(packet);
 		dest_coord = id2Coord(packet.dst_id);
 		slice = get_slice(src_coord, dest_coord);
 
@@ -297,6 +297,7 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
     {
     	flit.flit_type = FLIT_TYPE_TAIL;
     	flit.data_value = packet.data_value;
+    	flit.approx_data_values[0]=packet.approx_data_value;
     }
     else
 	flit.flit_type = FLIT_TYPE_BODY;
@@ -640,7 +641,7 @@ int NoximProcessingElement::getRandomSize()
 		   NoximGlobalParams::max_packet_size);
 }
 
-NoximPacket NoximProcessingElement::approximate(NoximPacket pkt){
+void NoximProcessingElement::approximate(NoximPacket& pkt){
 	int value = pkt.data_value;
 	if(pkt.is_approx){
 		int err_thresh;
@@ -651,16 +652,14 @@ NoximPacket NoximProcessingElement::approximate(NoximPacket pkt){
 			if (abs(pkt.data_value - most_used) < err_thresh){
 				pkt.flit_left = 3;  // head+ tail + 1 filt for data
 				pkt.approx_data_value = most_used;
+				pkt.size = 3;
 				break;
 			}
 
 		}
-		return pkt;
 		// if error tolerance is less than data bit shifted right 5 times, make the data size to 3 flits
 		// fill the approximate value with the data from the table
 	}
-	else
-		return pkt;
 }
 
 int NoximProcessingElement::get_error_tolerance(int data){

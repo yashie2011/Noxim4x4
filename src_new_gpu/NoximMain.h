@@ -16,7 +16,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-//#include "constants.h"
+#include "constants.h"
 using namespace std;
 
 // Define the directions as numbers
@@ -178,6 +178,10 @@ struct NoximPacket {
     int reply_data_size;
     int  computation_time;
     int data_value;
+    int approx_data_val[BUFF_CHK];
+    int apx_dst_id[BUFF_CHK];
+    int approx_len;
+    bool is_approx;
 
     // Constructors
     NoximPacket() { }
@@ -244,8 +248,9 @@ struct NoximFlit {
     bool use_low_voltage_path;
     long data_size;
     int data_value;
-    int approx_data_values[3];
-    int recv_list[3];
+    int approx_data_val[BUFF_CHK];
+    int apx_dst_id[BUFF_CHK];
+    int approx_len;
     bool flit_sent;
     uint tag;
 

@@ -103,6 +103,7 @@ using namespace std;
 #define MAX_STATIC_DIM 32
 
 extern const int pseudo_ids[];
+extern const int* most_used_values[];
 
 typedef unsigned int uint;
 

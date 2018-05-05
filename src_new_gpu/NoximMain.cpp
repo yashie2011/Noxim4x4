@@ -57,6 +57,8 @@ bool NoximGlobalParams::show_log = DEFAULT_LOGGING_FLAG;
 
 // The pseudo ids represent the ids numbers of cores and MCs located on the mesh based NoC
 const int pseudo_ids[] = {0, 1, 0, 2, 3, 4, 5, 1, 2, 6, 7, 8, 9, 3, 10, 11};
+
+
 //---------------------------------------------------------------------------
 
 int sc_main(int arg_num, char *arg_vet[])

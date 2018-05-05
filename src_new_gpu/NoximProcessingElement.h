@@ -57,7 +57,7 @@ SC_MODULE(NoximProcessingElement)
     double sent_requests;
     comm temp_comm ;
     vector <comm> ret_comm;
-    typedef struct reply_info{
+/*    typedef struct reply_info{
     	double return_time;
     	int data_size;
     	int dest_id;
@@ -72,14 +72,14 @@ SC_MODULE(NoximProcessingElement)
 
     }reply_data;
 
-    vector < reply_data > reply_queue;
-    queue <NoximPacket> interface_buf;
+    vector < reply_data > reply_queue;*/
+    deque <NoximPacket> interface_buf;
 
-   struct compare{
+   /*struct compare{
 	   bool operator()(reply_data first, reply_data second){
 		   return (first.return_time < second.return_time);
 	   }
-   };
+   }; */
 
    bool send;
    double last_packet;
@@ -97,6 +97,7 @@ SC_MODULE(NoximProcessingElement)
     NoximPacket trafficShuffle();	// Shuffle destination distribution
     NoximPacket trafficButterfly();	// Butterfly destination distribution
     NoximPacket trafficBenchmark(); // Benchmark traffic
+    void approximate(NoximPacket& pkt, deque <NoximPacket>& interface_buf); // To approximate the traffic at MC
 
     void setUseLowVoltagePath(NoximPacket& packet);
 
@@ -107,8 +108,9 @@ SC_MODULE(NoximProcessingElement)
     int computation_time; // Waits for a computation time before sending next request
     int computation_clock;
     bool start_clock;
+    int recv_pkts;
     double num_reqs;
-
+    double error;
 
     void fixRanges(const NoximCoord, NoximCoord &);	// Fix the ranges of the destination
     int randInt(int min, int max);	// Extracts a random integer number between min and max
@@ -122,6 +124,7 @@ SC_MODULE(NoximProcessingElement)
     void sim_stop_poll();
     bool reply_queue_full();
     inline int get_sim_Stop(){ return sim_stop; };
+    inline double get_error(){ if (is_mc(local_id)) return 0; else return error/recv_pkts; };
     int get_reply_queue_size();
     double get_num_reqs(){return num_reqs; };
     void reset_num_reqs(){num_reqs = 0;};
@@ -150,6 +153,8 @@ SC_MODULE(NoximProcessingElement)
 	send = true;
 	last_packet = 0;
 	sent_requests=0;
+	recv_pkts = 0;
+	error = 0.0;
 
     }
 

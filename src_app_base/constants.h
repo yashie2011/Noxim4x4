@@ -12,7 +12,7 @@
 #define NUM_CORES 12
 #define MEM_CONTROLLERS 4
 #define REQ_DATA_SIZE 8
-#define REPLY_DATA_SIZE 32
+#define REPLY_DATA_SIZE 128
 #define FLIT_SIZE 64
 #define MC_BUFF_CAP 32
 

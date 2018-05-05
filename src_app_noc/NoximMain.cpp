@@ -54,9 +54,19 @@ bool NoximGlobalParams::low_power_link_strategy = DEFAULT_LOW_POWER_LINK_STRATEG
 double NoximGlobalParams::qos = DEFAULT_QOS;
 bool NoximGlobalParams::show_buffer_stats = DEFAULT_SHOW_BUFFER_STATS;
 bool NoximGlobalParams::show_log = DEFAULT_LOGGING_FLAG;
+int NoximGlobalParams::bench = 1;
 
 // The pseudo ids represent the ids numbers of cores and MCs located on the mesh based NoC
 const int pseudo_ids[] = {0, 1, 0, 2, 3, 4, 5, 1, 2, 6, 7, 8, 9, 3, 10, 11};
+const int convtex_vals[] = {1, 14, 12, 6, 8, 3, 5};
+const int dct_vals[] = {1102053376 , 3266969600 , 1102577664 , 3253731328 , 3266838528 , 3246915584 , 1098907648 , 3251109888 };
+const int dxtc_vals[] = {1476393640 , 1610612384 , 1431654400 , 1610612712 , 1604845568 , 1476307626 , 1432264704 , 1431658474 };
+const int hist_vals[] = {431563413 , 946919909 , 658322570 ,3925699270 ,  656493282 , 1858020044 , 2678794759 , 137042737};
+const int black_vals[] = {1092670054 , 1099581098 , 1087545660 , 1095476404 , 1099607090 , 1094694200 , 1091488520 , 1099910159 };
+const int fwt_vals[] = {1055520064, 1058541633, 1061617699, 1063090604, 1020306588, 1060502051, 1053751792, 1040265986};
+
+const int* most_used_values[] = {convtex_vals, dct_vals, dxtc_vals, hist_vals, black_vals, fwt_vals};
+
 //---------------------------------------------------------------------------
 
 int sc_main(int arg_num, char *arg_vet[])

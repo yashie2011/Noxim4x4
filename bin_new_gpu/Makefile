@@ -7,7 +7,7 @@ DEBUG  = -g
 OTHER  = # -Wall -Wno-deprecated
 CFLAGS = $(OPT) $(OTHER) # $(DEBUG)
 
-VPATH = ../src_new:.
+VPATH = ../src_new_gpu:.
 MODULE = noxim
 SRCS = ./global_vars.cpp ./NoximNoC.cpp ./NoximRouter.cpp ./fc_router.cpp ./benchmark.cpp ./NoximProcessingElement.cpp ./NoximBuffer.cpp \
 	./NoximStats.cpp ./NoximGlobalStats.cpp ./NoximGlobalRoutingTable.cpp \

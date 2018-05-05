@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cmd="./noxim -pir 0.01 poisson -sim 100000 -warmup 100 -size 8 8 -buffer 12 -pwr default_router.pwr -lpls -qos 0.5 -routing xy -dimx 4 -dimy 4 -traffic benchmark"
+cmd2 = "./noxim -pir 0.01 poisson -sim 100000 -warmup 100 -size 8 8 -buffer 12 -pwr default_router.pwr -lpls -qos 0.5 -routing xy -dimx 4 -dimy 4 -traffic benchmark -bench 1"
 
 extension=.log.2
 logname="$1$extension"

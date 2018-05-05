@@ -91,7 +91,7 @@ void NoximProcessingElement::rxProcess()
     			    	if(flit_tmp.flit_type == FLIT_TYPE_HEAD )
     			    	{
     			    		// Start a timer that should be increment at every cycle
-    			    		//
+    			    		start_clock = true;
     			    	}
     			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
 
@@ -105,7 +105,6 @@ void NoximProcessingElement::rxProcess()
     			    		}
 
     			    	}
-    			    	start_clock = true;
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
 
@@ -174,11 +173,6 @@ void NoximProcessingElement::txProcess()
     		}
     	}
 
-
-	/*NoximFlit temp_flit = nextFlit_view();
-	src_coord = id2Coord(local_id);
-	dest_coord = id2Coord(temp_flit.dst_id);
-	slice = get_slice(src_coord, dest_coord);*/
 
 	for(int slice =0; slice<SLICES; slice++){
 
@@ -362,7 +356,9 @@ bool NoximProcessingElement::canShot()
 	// Remove it from here for better purposes
 
 
-    } else {			// Table based communication traffic
+    }
+
+    else {			// Table based communication traffic
 	if (never_transmit)
 	    return false;
 
@@ -520,14 +516,13 @@ NoximPacket NoximProcessingElement::trafficBenchmark(){
 					interface_buf.push(p);
 				}// Adding into the infinite buffer
 			}
-			ret_comm.clear();  // Clearing the vector to be sent in the next cycle
-		}
+		
    //=======================================================================
 		return p;
 
+		}
+	}
 }
-}
-
 void NoximProcessingElement::setBit(int &x, int w, int v)
 {
     int mask = 1 << w;

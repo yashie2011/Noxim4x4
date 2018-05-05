@@ -116,7 +116,7 @@ SC_MODULE(NoximProcessingElement)
     bool reply_queue_full();
     inline int get_sim_Stop(){ return sim_stop; };
     inline double get_error(){ if (is_mc(local_id)) return 0; else return error/recv_pkts; };
-    NoximPacket approximate(NoximPacket pkt);
+    void approximate(NoximPacket& pkt);
     int get_error_tolerance(int value);
 
     benchmark              &b_mark;
