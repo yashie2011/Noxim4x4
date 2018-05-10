@@ -34,5 +34,5 @@
 #define BC_RECEIVERS 3
 
 #define BUFF_CHK 3
-#define ERR_THRESH 0.3
+#define ERR_THRESH 0.1
 #endif /* CONSTANTS_H_ */
