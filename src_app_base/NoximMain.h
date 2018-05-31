@@ -243,8 +243,6 @@ struct NoximFlit {
     bool use_low_voltage_path;
     long data_size;
     int data_value;
-    int approx_data_values[3];
-    int recv_list[3];
 
 
     inline bool operator ==(const NoximFlit & flit) const {

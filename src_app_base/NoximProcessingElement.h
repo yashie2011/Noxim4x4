@@ -75,6 +75,7 @@ SC_MODULE(NoximProcessingElement)
    }; */
 
    bool send;
+   bool send_mc;
    double last_packet;
 
     // Functions
@@ -100,8 +101,8 @@ SC_MODULE(NoximProcessingElement)
     int computation_time; // Waits for a computation time before sending next request
     int computation_clock;
     bool start_clock;
-    int recv_pkts;
     double error;
+    double last_recv_ts;
 
     void fixRanges(const NoximCoord, NoximCoord &);	// Fix the ranges of the destination
     int randInt(int min, int max);	// Extracts a random integer number between min and max
@@ -115,7 +116,7 @@ SC_MODULE(NoximProcessingElement)
     void sim_stop_poll();
     bool reply_queue_full();
     inline int get_sim_Stop(){ return sim_stop; };
-    inline double get_error(){ if (is_mc(local_id)) return 0; else return error/recv_pkts; };
+    inline double get_error(){ return 0; };
 
     benchmark              &b_mark;
     // Constructor
@@ -137,10 +138,11 @@ SC_MODULE(NoximProcessingElement)
 
 
 	send = true;
+	send_mc = false;
 	last_packet = 0;
 	sent_requests=0;
-	recv_pkts = 0;
 	error = 0.0;
+	last_recv_ts = 0.0;
 
     }
 

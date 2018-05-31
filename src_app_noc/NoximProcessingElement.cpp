@@ -68,21 +68,26 @@ void NoximProcessingElement::rxProcess()
     			rx_flits[k]=0;
     	}
 
-    } else {
+    } 
+    else {
     	// Read from each slice -- arbitration no priority.. Just reading in order
     	if(!pre.is_open())
     		 pre.open("pre.log", ios::out | ios::app);
 
-    	for(int k=0; k< SLICES; k++){
-    		if (req_rx[k].read() == 1 - current_level_rx[k]) {
+    	for(int k=0; k< SLICES; k++)
+    	{
+    		if (req_rx[k].read() == 1 - current_level_rx[k]) 
+    		{
     			    NoximFlit flit_tmp = flit_rx[k].read();
     			    NoximCoord dest_id = id2Coord(flit_tmp.dst_id);
     			    NoximCoord src_id = id2Coord(flit_tmp.src_id);
     			    // Then check if the current PE is a memory controller
-    			    if(is_mc(dest_id)){
+    			    if(is_mc(dest_id))
+    			    {
 
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
+        			    send_mc = true;
 
         			    // else, do nothing
     			    }
@@ -91,19 +96,22 @@ void NoximProcessingElement::rxProcess()
     			    	if(flit_tmp.flit_type == FLIT_TYPE_HEAD )
     			    	{
     			    		// Start a timer that should be increment at every cycle
-    			    		//
+    			    		start_clock = true;
     			    	}
     			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
 
-    			    		recv_pkts ++;
+    			    		
     			    		if (!is_mc(local_id)){
-    			    		if (flit_tmp.data_value > 0)
-    			    			error += (flit_tmp.data_value - flit_tmp.approx_data_values[0])/flit_tmp.data_value;
+    			    		if (flit_tmp.data_value > 0){
+    			    			error += fabs(flit_tmp.data_value - flit_tmp.approx_data_values[0]);
+    			    			tot_data_val += flit_tmp.data_value;
+    			    			recv_pkts ++;
+							}
     			    	}
     			    		//cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
 
     			    	}
-    			    	start_clock = true;
+    			    	
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
 
@@ -161,7 +169,11 @@ void NoximProcessingElement::txProcess()
     	canShot();
     // if MC just call push_packet
     	if(is_mc(id2Coord(local_id))){
-    		push_packet();
+			if(send_mc)
+			{
+				push_packet();
+				send_mc = false;
+			}
     	}
     	else  // Otherwise, check if the last packet has received reply and then call push packet
     	{
@@ -324,7 +336,8 @@ bool NoximProcessingElement::canShot()
 
 	//shot = (((double) rand()) / RAND_MAX < threshold);  We cant use this in benchmark traffic
 	shot = true;
-	if (1){  // (shot) {    Changed to look for a packet at each cycle
+	if (1)
+	{  // (shot) {    Changed to look for a packet at each cycle
 	    switch (NoximGlobalParams::traffic_distribution) {
 	    case TRAFFIC_RANDOM:
 		packet = trafficRandom();
@@ -363,7 +376,9 @@ bool NoximProcessingElement::canShot()
 	// Remove it from here for better purposes
 
 
-    } else {			// Table based communication traffic
+    } 
+    else 
+    {			// Table based communication traffic
 	if (never_transmit)
 	    return false;
 

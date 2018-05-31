@@ -1,0 +1,16 @@
+gpu_3
+dxtc
+Noxim simulation completed.
+ ( 2212258.00000000 cycles executed)
+% Total received packets: 436582
+% Global average throughput (flits/cycle): 0.07406640
+% Throughput (flits/cycle/IP): 3.27944444
+% Max delay (cycles): 172.00000000
+% Total energy (J): 1.6517034771e-04
+% received flits to slice 0 655233
+% transmitted flits from slice 0 655240
+% average delay of slice 0 2.3648341888e+01
+% received flits to slice 1 3927091
+% transmitted flits from slice 1 3931007
+% average delay of slice 1 4.5035555367e+03
+% Total Error :0.0000000000e+00

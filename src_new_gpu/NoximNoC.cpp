@@ -217,6 +217,7 @@ void NoximNoC::sim_stop_poller()
 					error += t[i][j]->pe->get_error();
 				}
 			}
+			error = error/NUM_CORES;
 			sc_stop();
 		}
 	}

@@ -75,6 +75,7 @@ SC_MODULE(NoximProcessingElement)
    }; */
 
    bool send;
+   bool send_mc;
    double last_packet;
 
     // Functions
@@ -102,6 +103,7 @@ SC_MODULE(NoximProcessingElement)
     bool start_clock;
     int recv_pkts;
     double error;
+    double tot_data_val;
 
     void fixRanges(const NoximCoord, NoximCoord &);	// Fix the ranges of the destination
     int randInt(int min, int max);	// Extracts a random integer number between min and max
@@ -115,7 +117,7 @@ SC_MODULE(NoximProcessingElement)
     void sim_stop_poll();
     bool reply_queue_full();
     inline int get_sim_Stop(){ return sim_stop; };
-    inline double get_error(){ if (is_mc(local_id)) return 0; else return error/recv_pkts; };
+    inline double get_error(){ if (is_mc(local_id) || recv_pkts == 0) return 0; else return error/(tot_data_val*recv_pkts); };
     void approximate(NoximPacket& pkt);
     int get_error_tolerance(int value);
 
@@ -139,10 +141,12 @@ SC_MODULE(NoximProcessingElement)
 
 
 	send = true;
+	send_mc = false;
 	last_packet = 0;
 	sent_requests=0;
 	recv_pkts = 0;
 	error = 0.0;
+	tot_data_val =1;
 
     }
 

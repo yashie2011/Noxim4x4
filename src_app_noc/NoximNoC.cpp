@@ -210,8 +210,10 @@ void NoximNoC::sim_stop_poller()
 			for (int i = 0; i < NoximGlobalParams::mesh_dim_x; i++) {
 				for (int j = 0; j < NoximGlobalParams::mesh_dim_y; j++) {
 					error += t[i][j]->pe->get_error();
+					//cout<<"end error "<< error<<endl;
 				}
 			}
+			error = error/NUM_CORES;
 			sc_stop();
 		}
 	}

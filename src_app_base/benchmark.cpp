@@ -191,7 +191,7 @@ void benchmark::packet_injection_mem_c()
 				reply_node .status = true;
 				reply_node .data_value = atoi(data_val);
 				const char* a = "a";
-				if (strcmp(approx_flag, a)) {reply_node.approx = true;}
+				if (!strcmp(approx_flag, a)) {reply_node.approx = true;}
 				else {reply_node.approx = false;}
 				comm_req.push_back(reply_node );
 

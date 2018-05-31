@@ -69,13 +69,16 @@ void NoximProcessingElement::rxProcess()
     			num_reqs = 0;
     	}
 
-    } else {
+    } 
+    else {
     	// Read from each slice -- arbitration no priority.. Just reading in order
     	if(!pre.is_open())
     		 pre.open("pre.log", ios::out | ios::app);
 
-    	for(int k=0; k< SLICES; k++){
-    		if (req_rx[k].read() == 1 - current_level_rx[k]) {
+    	for(int k=0; k< SLICES; k++)
+    	{
+    		if (req_rx[k].read() == 1 - current_level_rx[k]) 
+    		{
     			    NoximFlit flit_tmp = flit_rx[k].read();
     			    NoximCoord dest_id = id2Coord(flit_tmp.dst_id);
     			    NoximCoord src_id = id2Coord(flit_tmp.src_id);
@@ -84,6 +87,7 @@ void NoximProcessingElement::rxProcess()
 
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
+				    send_mc = true;
 						if(flit_tmp.flit_type == FLIT_TYPE_HEAD )
     			    	{
     			    		// Start a timer that should be increment at every cycle
@@ -100,12 +104,19 @@ void NoximProcessingElement::rxProcess()
     			    	}
     			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
 
-    			    		recv_pkts ++;
-    			    		for (int i=0; i < BC_RECEIVERS; i++){
-    			    			if (!is_mc(local_id) && flit_tmp.apx_dst_id[i] == local_id){
-    			    				if (flit_tmp.data_value > 0)
-    			    					error += (flit_tmp.data_value - flit_tmp.approx_data_val[i])/flit_tmp.data_value;
-    			    				//cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+    			    		for (int i=0; i < BUFF_CHK; i++){
+    			    			if (!is_mc(local_id) && flit_tmp.apx_dst_id[i] == local_id)
+    			    			{
+									double diff =  fabs(flit_tmp.data_value - flit_tmp.approx_data_val[i]);
+    			    				if (flit_tmp.data_value > 0 && diff <= fabs(ERR_THRESH*flit_tmp.data_value))
+    			    				{
+										error += fabs(flit_tmp.data_value - flit_tmp.approx_data_val[i])/fabs(flit_tmp.data_value);
+    			    					recv_pkts ++;
+    			    					//tot_data_val += abs(flit_tmp.data_value);
+										//cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+										//cout<<"indx "<<i<<endl;
+										//cout<<"local id "<<local_id<<" approx data "<<flit_tmp.data_value<<" "<<flit_tmp.approx_data_val[i]<<endl;
+    			    				}
     			    			}
     			    		}
 
@@ -170,7 +181,11 @@ void NoximProcessingElement::txProcess()
     	canShot();
     // if MC just call push_packet
     	if(is_mc(id2Coord(local_id))){
-    		push_packet();
+			if(send_mc)
+			{
+				push_packet();
+				send_mc = false;
+			}
     	}
     	else  // Otherwise, check if the last packet has received reply and then call push packet
     	{
@@ -309,7 +324,7 @@ NoximFlit NoximProcessingElement::nextFlit(int slice)
 	flit.approx_len = packet.approx_len;
 	if(packet.is_approx)
 	{
-		for(int i = 0; i< BUFF_CHK; i++)
+		for(int i = 0; i< packet.approx_len; i++)
 		{
 			flit.approx_data_val[i] = packet.approx_data_val[i];
 			flit.apx_dst_id[i] = packet.apx_dst_id[i];
@@ -684,15 +699,16 @@ void NoximProcessingElement::approximate(NoximPacket& pkt, deque <NoximPacket>& 
 				for (int i = 0; i< BUFF_CHK; i++)
 				{
 					NoximPacket nxt_pkt = interface_buf.at(i+1);
-					if(abs(pkt.data_value - nxt_pkt.data_value) < err_thresh && nxt_pkt.is_approx)
+					if(fabs(pkt.data_value - nxt_pkt.data_value) < err_thresh && nxt_pkt.is_approx)
 					{
 						//cout<<"data "<<pkt.data_value<<" next "<<nxt_pkt.data_value<<endl;
 						pkt.approx_data_val[i] = nxt_pkt.data_value;
 						pkt.apx_dst_id[i] = nxt_pkt.dst_id;
 						rem_indx.push_back(i+1);
 						approx_len++;
-					}
+					}	
 				}
+				//if(approx_len) cout<<"pkt.approx_len "<<approx_len<<endl;
 				pkt.approx_len = approx_len;
 				for (int i =0; i < rem_indx.size(); i++)
 				{

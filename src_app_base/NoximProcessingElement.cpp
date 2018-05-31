@@ -44,7 +44,7 @@ void NoximProcessingElement::sim_stop_poll()
 				cout << std::setprecision(8);
 				sim_stop = 1;
 				if((sent_requests == (b_mark.get_trace_len()-1))||(sent_requests == 18000)){
-					cout<<"the processing element "<<local_id<<"stops at "<<  sc_time_stamp().to_double()<<endl;
+					cout<<"the processing element "<<local_id<<" stops at "<<  sc_time_stamp().to_double()<<endl;
 					sent_requests++;
 				}
 			}
@@ -68,21 +68,27 @@ void NoximProcessingElement::rxProcess()
     			rx_flits[k]=0;
     	}
 
-    } else {
+    } 
+    else {
     	// Read from each slice -- arbitration no priority.. Just reading in order
     	if(!pre.is_open())
     		 pre.open("pre.log", ios::out | ios::app);
 
-    	for(int k=0; k< SLICES; k++){
-    		if (req_rx[k].read() == 1 - current_level_rx[k]) {
+    	for(int k=0; k< SLICES; k++)
+    	{
+    		if (req_rx[k].read() == 1 - current_level_rx[k]) 
+    		{
     			    NoximFlit flit_tmp = flit_rx[k].read();
     			    NoximCoord dest_id = id2Coord(flit_tmp.dst_id);
     			    NoximCoord src_id = id2Coord(flit_tmp.src_id);
+    			    last_recv_ts = sc_time_stamp().to_double();
     			    // Then check if the current PE is a memory controller
-    			    if(is_mc(dest_id)){
+    			    if(is_mc(dest_id))
+    			    {
 
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
+        			    send_mc = true;
 
         			    // else, do nothing
     			    }
@@ -95,24 +101,25 @@ void NoximProcessingElement::rxProcess()
     			    	}
     			    	if ((flit_tmp.flit_type == FLIT_TYPE_TAIL)){
 
-    			    		recv_pkts ++;
     			    		for (int i=0; i < BC_RECEIVERS; i++){
-    			    			if (!is_mc(local_id) && flit_tmp.recv_list[i] == local_id){
+    			    			if (!is_mc(local_id)){
     			    				if (flit_tmp.data_value > 0)
-    			    					error += (flit_tmp.data_value - flit_tmp.approx_data_values[i])/flit_tmp.data_value;
-    			    				cout<<"computed error "<< error<< " recv pckts "<<recv_pkts<<endl;
+    			    					error += 0;
+    			    				//cout<<"computed error "<< error<<endl;
     			    			}
     			    		}
-
+						
     			    	}
+    			    	
         			    current_level_rx[k] = 1 - current_level_rx[k];	// Negate the old value for Alternating Bit Protocol (ABP)
         			    rx_flits[k]++;
 
-        			    //cout<< "Receved packet from src "<< flit_tmp.src_id << " at "<<local_id<<endl;
+        			    cout<< "Receved packet from src "<< flit_tmp.src_id << " at "<<local_id<<endl;
     			    }
 
-    			    if (NoximGlobalParams::verbose_mode > VERBOSE_OFF) {
-    				cout << sc_simulation_time() << ": ProcessingElement[" <<
+    			    if (NoximGlobalParams::verbose_mode > VERBOSE_OFF) 
+    			    {
+						cout << sc_simulation_time() << ": ProcessingElement[" <<
     				    local_id << "] RECEIVING " << flit_tmp << endl;
     			    }
 
@@ -157,26 +164,42 @@ void NoximProcessingElement::txProcess()
     		send = true;
     	else if (interface_buf.size() > 100)
     		send = true;
+		if ((abs(last_recv_ts - sc_time_stamp().to_double())) > 2000){
+			send = true;
+		}
 
 
     	canShot();
     // if MC just call push_packet
     	if(is_mc(id2Coord(local_id))){
-    		push_packet();
+			if(send_mc)
+			{
+				//cout<<"push packet queue size "<< interface_buf.size()<<" at "<<local_id<<endl;
+				push_packet();
+				send_mc = false;
+			}
+			/*else if ((abs(last_recv_ts - sc_time_stamp().to_double())/1000) > 200){
+				push_packet();
+				send_mc = false;
+				last_recv_ts = 0;
+			}*/
     	}
     	else  // Otherwise, check if the last packet has received reply and then call push packet
     	{
     		//pre<< "at node "<< local_id<<" nonMC the send flag is "<< send<<endl;
     		if(send)
     		{
+				//cout<<"push packet queue size "<< interface_buf.size()<<" at "<<local_id<<endl;
     			push_packet();
+    			//last_recv_ts = 0;
     		}
     	}
 
 
 	for(int slice =0; slice<SLICES; slice++){
 
-	if (ack_tx[slice].read() == current_level_tx[slice]) {
+	if (ack_tx[slice].read() == current_level_tx[slice]) 
+	{
 	    if (!packet_queue[slice].empty()) {
 		NoximFlit flit = nextFlit(slice);	// Generate a new flit
 		if (NoximGlobalParams::verbose_mode > VERBOSE_OFF) {
@@ -187,36 +210,7 @@ void NoximProcessingElement::txProcess()
 
 		if(flit.flit_type == FLIT_TYPE_HEAD){
 			sent_requests++;
-			//cout<<"Sending flits from "<< flit.src_id<< " to "<<flit.dst_id<<endl;
-					/*switch (slice){
-					case 0:
-						slice_0_trace<<"node "<<this->local_id;
-						slice_0_trace<<" at slice 0: sending flits with "<< flit.src_id<< " "<<flit.dst_id<<" type "<<flit.flit_type;
-						slice_0_trace<<" at "<< sc_time_stamp().to_double() / 1000<< endl;
-						break;
-
-					case 1:
-						slice_1_trace<<"node "<<this->local_id;
-						slice_1_trace<<" slice 1 sending flits with "<< flit.src_id<< " "<<flit.dst_id<<" type "<<flit.flit_type;
-						slice_1_trace<<" at "<< sc_time_stamp().to_double() / 1000<< endl;
-						break;
-					case 2:
-						slice_2_trace<<"node "<<this->local_id;
-						slice_2_trace<<" slice 2 sending flits with "<< flit.src_id<< " "<<flit.dst_id<<" type "<<flit.flit_type;
-						slice_2_trace<<" at "<< sc_time_stamp().to_double() / 1000<< endl;
-						break;
-					case 3:
-						slice_3_trace<<"node "<<this->local_id;
-						slice_3_trace<<" slice 3 sending flits with "<< flit.src_id<< " "<<flit.dst_id<<" type "<<flit.flit_type;
-						slice_3_trace<<" at "<< sc_time_stamp().to_double() / 1000<< endl;
-						break;
-					case 4:
-						slice_4_trace<<"node "<<this->local_id;
-						slice_4_trace<<" slice 4 sending flits with "<< flit.src_id<< " "<<flit.dst_id<<" type "<<flit.flit_type;
-						slice_4_trace<<" at "<< sc_time_stamp().to_double() / 1000<< endl;
-						break;
-					}*/
-
+			cout<<"Sending flits from "<< flit.src_id<< " to "<<flit.dst_id<<endl;
 				}
 		flit_tx[slice]->write(flit);	// Send the generated flit
 		current_level_tx[slice] = 1 - current_level_tx[slice];	// Negate the old value for Alternating Bit Protocol (ABP)
@@ -317,7 +311,8 @@ bool NoximProcessingElement::canShot()
 
 	//shot = (((double) rand()) / RAND_MAX < threshold);  We cant use this in benchmark traffic
 	shot = true;
-	if (1){  // (shot) {    Changed to look for a packet at each cycle
+	if (1)
+	{  // (shot) {    Changed to look for a packet at each cycle
 	    switch (NoximGlobalParams::traffic_distribution) {
 	    case TRAFFIC_RANDOM:
 		packet = trafficRandom();
@@ -356,9 +351,9 @@ bool NoximProcessingElement::canShot()
 	// Remove it from here for better purposes
 
 
-    }
-
-    else {			// Table based communication traffic
+    } 
+    else 
+    {			// Table based communication traffic
 	if (never_transmit)
 	    return false;
 
@@ -512,10 +507,12 @@ NoximPacket NoximProcessingElement::trafficBenchmark(){
 				p.computation_time=it->comp_time;
 				if(p.packet_returned)
 				{
-					//cout<< "packet returned by bench.cpp in "<< local_id<<" at "<<p.timestamp<<endl;
+					cout<< "packet returned by bench.cpp in "<< local_id<<" at "<<p.timestamp<<endl;
 					interface_buf.push(p);
 				}// Adding into the infinite buffer
-			}
+						
+		}
+		ret_comm.clear();	
 		
    //=======================================================================
 		return p;

@@ -1,0 +1,15 @@
+gpu_2:
+dxtc
+ ( 2212479.00000000 cycles executed)
+% Total received packets: 436635
+% Global average throughput (flits/cycle): 0.07407098
+% Throughput (flits/cycle/IP): 3.27986486
+% Max delay (cycles): 145.00000000
+% Total energy (J): 1.6517148952e-04
+% received flits to slice 0 655316
+% transmitted flits from slice 0 655321
+% average delay of slice 0 2.3659103915e+01
+% received flits to slice 1 3927539
+% transmitted flits from slice 1 3931353
+% average delay of slice 1 4.5425471549e+03
+% Total Error :0.0000000000e+00

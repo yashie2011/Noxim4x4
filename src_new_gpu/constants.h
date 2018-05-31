@@ -31,8 +31,7 @@
 #define DEST_ID_POS_MC 5
 #define DATA_POS_MC 7
 #define APPROX_POS_MC 10
-#define BC_RECEIVERS 3
 
-#define BUFF_CHK 3
-#define ERR_THRESH 0.1
+#define BUFF_CHK 6
+#define ERR_THRESH 0.2
 #endif /* CONSTANTS_H_ */
