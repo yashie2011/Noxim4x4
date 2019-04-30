@@ -54,18 +54,14 @@ bool NoximGlobalParams::low_power_link_strategy = DEFAULT_LOW_POWER_LINK_STRATEG
 double NoximGlobalParams::qos = DEFAULT_QOS;
 bool NoximGlobalParams::show_buffer_stats = DEFAULT_SHOW_BUFFER_STATS;
 bool NoximGlobalParams::show_log = DEFAULT_LOGGING_FLAG;
-int NoximGlobalParams::bench = 1;
+double NoximGlobalParams::address_max = DEFAULT_ADDR_MAX;
+double NoximGlobalParams::address_min = DEFAULT_ADDR_MIN;
+char NoximGlobalParams::bench_name[128] = DEFAULT_BENCH_NAME;
+char NoximGlobalParams::file_path[128] = DEFAULT_FILE_PATH;
+int NoximGlobalParams::check_depth = DEFAULT_CHECK_DEPTH;
+float NoximGlobalParams::approx_rate = DEFAULT_APPROX_RATE;
+int NoximGlobalParams::bank_queues = DEFAULT_BANK_QUEUES;
 
-// The pseudo ids represent the ids numbers of cores and MCs located on the mesh based NoC
-const int pseudo_ids[] = {0, 1, 0, 2, 3, 4, 5, 1, 2, 6, 7, 8, 9, 3, 10, 11};
-const long int convtex_vals[] = {1, 14, 12, 6, 8, 3, 5};
-const long int dct_vals[] = {1102053376 , 3266969600 , 1102577664 , 3253731328 , 3266838528 , 3246915584 , 1098907648 , 3251109888 };
-const long int dxtc_vals[] = {1476393640 , 1610612384 , 1431654400 , 1610612712 , 1604845568 , 1476307626 , 1432264704 , 1431658474 };
-const long int hist_vals[] = {431563413 , 946919909 , 658322570 ,3925699270 ,  656493282 , 1858020044 , 2678794759 , 137042737};
-const long int black_vals[] = {1092670054 , 1099581098 , 1087545660 , 1095476404 , 1099607090 , 1094694200 , 1091488520 , 1099910159 };
-const long int fwt_vals[] = {1055520064, 1058541633, 1061617699, 1063090604, 1020306588, 1060502051, 1053751792, 1040265986};
-
-const long int* most_used_values[] = {convtex_vals, dct_vals, dxtc_vals, hist_vals, black_vals, fwt_vals};
 
 //---------------------------------------------------------------------------
 
@@ -81,6 +77,7 @@ int sc_main(int arg_num, char *arg_vet[])
     parseCmdLine(arg_num, arg_vet);
 
     // Signals
+    //sc_set_time_resolution(1, SC_PS);
     sc_clock clock("clock", 1, SC_NS);
     sc_signal <bool> reset;
 
@@ -100,7 +97,6 @@ int sc_main(int arg_num, char *arg_vet[])
     if (NoximGlobalParams::trace_mode) {
 	tf = sc_create_vcd_trace_file(NoximGlobalParams::trace_filename);
 	sc_trace(tf, reset, "reset");
-	sc_trace(tf, clock, "clock");
 
 	for (int i = 0; i < NoximGlobalParams::mesh_dim_x; i++) {
 	    for (int j = 0; j < NoximGlobalParams::mesh_dim_y; j++) {
@@ -143,14 +139,17 @@ int sc_main(int arg_num, char *arg_vet[])
     pre_reply.open("pre_reply.log", ios::out | ios::app);
 
 
-    //sc_start(NoximGlobalParams::simulation_time, SC_NS);
-    sc_start();
+    sc_start(NoximGlobalParams::simulation_time, SC_NS);
+    //sc_start();
+    if(not sc_end_of_simulation_invoked()) {
+        cout << "Simulation stopped without explicit sc_stop()" << endl;
+        sc_stop();
+      }
     // Close the simulation
     if (NoximGlobalParams::trace_mode)
 	sc_close_vcd_trace_file(tf);
     cout << "Noxim simulation completed." << endl;
-    cout << " ( " << sc_time_stamp().to_double() /
-	1000 << " cycles executed)" << endl;
+    cout << " ( " << sc_time_stamp().to_double()/1000 << " cycles executed)" << endl;
 
 
     // Show statistics
@@ -164,7 +163,7 @@ int sc_main(int arg_num, char *arg_vet[])
         pre.close();
         pre_reply.close();
     if ((NoximGlobalParams::max_volume_to_be_drained > 0) &&
-	(sc_time_stamp().to_double() / 1000 >=
+	(sc_time_stamp().to_double()/1000 >=
 	 NoximGlobalParams::simulation_time)) {
 	cout <<
 	    "\nWARNING! the number of flits specified with -volume option"

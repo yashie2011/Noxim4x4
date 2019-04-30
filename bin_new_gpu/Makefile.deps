@@ -13,7 +13,7 @@
 ../src_new_gpu/NoximRouter.o: ../src_new_gpu/NoximPower.h ../src_new_gpu/NoximGlobalRoutingTable.h
 ../src_new_gpu/NoximRouter.o: ../src_new_gpu/NoximLocalRoutingTable.h
 ../src_new_gpu/NoximRouter.o: ../src_new_gpu/NoximReservationTable.h
-../src_new_gpu/benchmark.o: ../src_new_gpu/benchmark.h ../src_new_gpu/constants.h
+../src_new_gpu/db_node.o: ../src_new_gpu/db_node.h 
 ../src_new_gpu/fc_router.o: ../src_new_gpu/fc_router.h
 ../src_new_gpu/NoximProcessingElement.o: ../src_new_gpu/NoximProcessingElement.h
 ../src_new_gpu/NoximProcessingElement.o: ../src_new_gpu/NoximMain.h

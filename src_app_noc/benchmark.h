@@ -28,10 +28,8 @@ typedef struct communication{
     		int data_size;
     		bool status;
     		int comp_time;
-    		int data_value;
-    		bool approx;
 
-    	communication(){dest_id =0; data_size=0; status =false; comp_time = 0; data_value = 0; approx = false;};
+    	communication(){dest_id =0; data_size=0; status =false; comp_time = 0;};
     	}comm;
 
 
@@ -46,8 +44,8 @@ SC_MODULE(benchmark)
     inline  double get_trace_len(){return trace_len;};
 
 	void packet_injection_nodeindex();
-	void packet_injection_mem_c();
 	bool packet_injection_response_req(int nodeid_request, std::vector<comm> &ret_arr);
+	comm packet_injection_response_rep(int nodeid_request);
 	void clear_vector();
 
 
@@ -71,14 +69,7 @@ SC_MODULE(benchmark)
 		//cout << "First Line " << v_req[0] << endl;
 
 		trace_len = v_req.size();
-		if (!is_mc(node_id))
-		{
-			SC_METHOD(packet_injection_nodeindex);
-		}
-		else
-		{
-			SC_METHOD(packet_injection_mem_c);
-		}
+    SC_METHOD(packet_injection_nodeindex);
     sensitive << reset;
     sensitive << clock.pos();
 

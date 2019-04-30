@@ -5,7 +5,7 @@
 # NOTE FOR NOXIM USERS: before running "make" you just have to modify
 # the following variable to point to your SystemC installation path
 #
-SYSTEMC = /usr/local/systemc-2.3.2
+SYSTEMC = /usr/local/systemc-2.3.1
 #
 # That's all for you!!!
 
@@ -13,7 +13,7 @@ INCDIR = -I. -I.. -I../src -I$(SYSTEMC)/include
 LIBDIR = -L. -L.. -L../src -L$(SYSTEMC)/lib-$(TARGET_ARCH)
 
 #EXTRA_LIBS = -lpthread
-LIBS = -lsystemc -lm $(EXTRA_LIBS)
+LIBS = -lsystemc -lm $(EXTRA_LIBS) -lsqlite3
 
 EXE    = $(MODULE)
 

@@ -1,8 +1,8 @@
 # DO NOT DELETE
 
-../src_app_base_app_base/NoximNoC.o: ../src_app_base/NoximNoC.h ../src_app_base/NoximTile.h ../src_app_base/NoximRouter.h
+../src_app_base/NoximNoC.o: ../src_app_base/NoximNoC.h ../src_app_base/NoximTile.h ../src_app_base/NoximRouter.h
 ../src_app_base/NoximNoC.o: ../src_app_base/NoximMain.h ../src_app_base/NoximBuffer.h
-../src_app_base_app_base/NoximNoC.o: ../src_app_base_app_base/NoximStats.h ../src_app_base_app_base/NoximPower.h
+../src_app_base/NoximNoC.o: ../src_app_base/NoximStats.h ../src_app_base/NoximPower.h
 ../src_app_base/NoximNoC.o: ../src_app_base/NoximGlobalRoutingTable.h
 ../src_app_base/NoximNoC.o: ../src_app_base/NoximLocalRoutingTable.h
 ../src_app_base/NoximNoC.o: ../src_app_base/NoximReservationTable.h
@@ -13,7 +13,7 @@
 ../src_app_base/NoximRouter.o: ../src_app_base/NoximPower.h ../src_app_base/NoximGlobalRoutingTable.h
 ../src_app_base/NoximRouter.o: ../src_app_base/NoximLocalRoutingTable.h
 ../src_app_base/NoximRouter.o: ../src_app_base/NoximReservationTable.h
-../src_app_base/benchmark.o: ../src_app_base/benchmark.h
+../src_app_base/db_node.o: ../src_app_base/db_node.h 
 ../src_app_base/NoximProcessingElement.o: ../src_app_base/NoximProcessingElement.h
 ../src_app_base/NoximProcessingElement.o: ../src_app_base/NoximMain.h
 ../src_app_base/NoximProcessingElement.o: ../src_app_base/NoximGlobalTrafficTable.h
@@ -47,5 +47,5 @@
 ../src_app_base/NoximMain.o: ../src_app_base/NoximLocalRoutingTable.h
 ../src_app_base/NoximMain.o: ../src_app_base/NoximReservationTable.h
 ../src_app_base/NoximMain.o: ../src_app_base/NoximProcessingElement.h
-../src_app_base/NoximMain.o: ../src_app_base/NoximGlobalTrafficTable.h
+../src_app_base/NoximMain.o: ../src_app_base/NoximGlobalTrafficTable.h 
 ../src_app_base/NoximMain.o: ../src_app_base/NoximGlobalStats.h ../src_app_base/NoximCmdLineParser.h
